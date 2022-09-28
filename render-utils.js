@@ -1,6 +1,6 @@
 export function renderTodo(todo) {
     const li = document.createElement('li');
-
+    li.classList.add('complete');
     // > Part C: Conditionally add a "complete" class to the li
     // if the todo is complete
 

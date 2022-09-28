@@ -6,7 +6,9 @@ import { createTodo } from './fetch-utils.js';
 // Part B: import get todos
 import { getTodos } from './fetch-utils.js';
 // Part C: import complete todos
+import { completeTodo } from './fetch-utils.js';
 // Part D: import delete all function
+import { deleteAllTodos } from './fetch-utils.js';
 import { renderTodo } from './render-utils.js';
 
 /* Get DOM Elements */
@@ -64,14 +66,14 @@ addTodoForm.addEventListener('submit', async (e) => {
 
 removeButton.addEventListener('click', async () => {
     // > Part D: Call the async supabase function to delete all todos
-    const response = null; // change me
+    const response = ; // change me
     error = response.error;
 
     if (error) {
         displayError();
     } else {
         // > Part D: reset todos state to an empty array:
-
+        todos = [];
         displayTodos();
     }
 });
@@ -92,6 +94,20 @@ function displayTodos() {
     for (const todo of todos) {
         const todoEl = renderTodo(todo);
         todoList.append(todoEl);
+
+        todoEl.addEventListener('click', async () => {
+            const response = await completeTodo(todo.id);
+            error = response.error;
+            const updatedTodo = response.data;
+
+            if (error) {
+                displayError();
+            } else {
+                const index = todos.indexOf(todo);
+                todos[index] = updatedTodo;
+                displayTodos();
+            }
+        });
 
         // > Part C: Add a click event listener for the todoEl
         //      - call the async supabase function to delete all todos
