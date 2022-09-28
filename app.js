@@ -66,7 +66,7 @@ addTodoForm.addEventListener('submit', async (e) => {
 
 removeButton.addEventListener('click', async () => {
     // > Part D: Call the async supabase function to delete all todos
-    const response = ; // change me
+    const response = await deleteAllTodos(); // change me
     error = response.error;
 
     if (error) {
