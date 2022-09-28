@@ -4,6 +4,7 @@ import './auth/user.js';
 // Part A: import create todo
 import { createTodo } from './fetch-utils.js';
 // Part B: import get todos
+import { getTodos } from './fetch-utils.js';
 // Part C: import complete todos
 // Part D: import delete all function
 import { renderTodo } from './render-utils.js';
@@ -27,6 +28,17 @@ window.addEventListener('load', async () => {
     //      - set the todos and error state from the response
     //      - if there's an error call displayError
     //      - otherwise, display the todos
+    const response = await getTodos();
+    error = response.error;
+    todos = response.data;
+
+    if (error) {
+        displayError();
+    }
+
+    if (todos) {
+        displayTodos();
+    }
 });
 
 addTodoForm.addEventListener('submit', async (e) => {
